@@ -45,14 +45,13 @@ class Dataset(torchDataset):
 
         self.max_degree = max(self.degree_seq)
         for node in range(self.num_nodes):  
-            neighbors = self.get_neighbor(node) # 每个节点的邻居
+            neighbors = self.get_neighbor(node)
             if len(neighbors) < self.max_degree:
                 neighbors = np.random.choice(neighbors, int(self.max_degree), replace = True)  
             self.adj_info[node] = neighbors
         self.adj_info = self.adj_info.astype(int)
     
     def get_neighbor(self, node):
-        # return neighbor node set of a certain node
         neighbor = [n for n in self.g.neighbors(node)]
         return neighbor 
 
@@ -71,7 +70,6 @@ class Dataset(torchDataset):
             negative = -1
             while 1:
                 j = random.choice(list(range(len(self.node_normalized_walk_distr[0]))))
-                # aRW i 的概率 * aRW j的概率大于0 那么j是positive RW
                 if positive < 0 and self.node_normalized_walk_distr[key][j]*popi > 0:
                     positive = j
                 elif negative < 0 and self.node_normalized_walk_distr[key][j]*popi < 0:  # 
