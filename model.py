@@ -187,7 +187,7 @@ class GraLSP(nn.Module):
                 nodes_keys, paths_keys = self.sample(batchnode, self.num_neighbor, batch_size)
                 output_keys = F.normalize(self._aggregate(nodes_keys, paths_keys, batch_size), p=2,dim = 1)
                 self.embedding_array[100*i:100*i+100] = output_keys.detach().cpu().numpy()
-            else:  # 最后一个batch
+            else: 
                 batchnode = torch.arange(100*i, self.num_nodes, device=device)
                 nodes_keys, paths_keys = self.sample(batchnode, self.num_neighbor, self.num_nodes - 100*i)
                 output_keys = F.normalize(self._aggregate(nodes_keys, paths_keys, self.num_nodes - 100*i), p=2,dim = 1)

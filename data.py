@@ -1,8 +1,6 @@
 from torch.utils.data import Dataset as torchDataset
-import numpy as np
 import random
-import copy
-import math
+
 
 class Dataset(torchDataset):
     def __init__(self, parser,
@@ -31,25 +29,7 @@ class Dataset(torchDataset):
                 
         self.node_normalized_walk_distr = node_normalized_walk_distr
 
-        self.anonym_walk_dim = len(self.node_normalized_walk_distr[0])  # 877 
         
-
-        for i in range(self.num_nodes): 
-            distr = math.pow(self.degree_seq[i], 0.75)  
-            distr = math.ceil(distr)                   
-            for _ in range(distr):
-                self.neg_sampling_seq.append(i)   
-
-            self.adj_info = np.zeros((int(self.num_nodes), int(max(self.degree_seq)))) 
-
-
-        self.max_degree = max(self.degree_seq)
-        for node in range(self.num_nodes):  
-            neighbors = self.get_neighbor(node)
-            if len(neighbors) < self.max_degree:
-                neighbors = np.random.choice(neighbors, int(self.max_degree), replace = True)  
-            self.adj_info[node] = neighbors
-        self.adj_info = self.adj_info.astype(int)
     
     def get_neighbor(self, node):
         neighbor = [n for n in self.g.neighbors(node)]
