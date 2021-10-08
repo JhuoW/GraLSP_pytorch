@@ -82,7 +82,6 @@ def get_alias_edge(g,src, dst):
         if dst_nbr == src:  
             unnormalized_probs.append(1/parser.p)  
         elif g.has_edge(dst_nbr, src):
-            # one hop neighbor
             unnormalized_probs.append(1)    
         else:
             unnormalized_probs.append(1/parser.q) 
@@ -107,7 +106,7 @@ def generate_node2vec_walks(g, num_nodes,alias_nodes, alias_edges):
         node_walks[w[0]].append(w)
     return node_walks, random_walks
 
-def node2vec_walk(g,begin_node,alias_nodes, alias_edges):
+def node2vec_walk(g, begin_node,alias_nodes, alias_edges):
     walk = [begin_node]
 
     while(len(walk) < parser.path_length):

@@ -146,9 +146,6 @@ class GraLSP(nn.Module):
 
 
     def criterion(self, walk_key, walk_label, walk_neg):
-        # walk_key_embed = torch.index_select(self.walk_embeddings, walk_key)
-        # walk_label_embed = torch.index_select(self.walk_embeddings, walk_label) 
-        # walk_neg_embed = torch.index_select(self.walk_embeddings, walk_neg) 
 
         walk_key_embed = self.walk_embeddings[walk_key]  
         walk_label_embed = self.walk_embeddings[walk_label]
